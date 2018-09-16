@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Payment Hub</title>
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+
+
+	<div class="container">
+		<h2>List of Accounts</h2>
+		<p><span class="text-success" th:text="${success}"></span></p>
+		
+		<p><span class="text-danger" th:text="${fail}"></span></p>
+		
+		<!-- form to insert new account -->
+		<div>
+			<form id="accountInputForm" action="accountSave" method="POST">
+				<div class="form-group">
+					<label for="bankNo">Bank</label> <input type="text" class="form-control" id="bank" name="bank">
+				</div>
+				<div class="form-group">
+					<label for="branch">Branch</label> <input type="text" class="form-control" id="branch" name="branch">
+				</div>
+				<div class="form-group">
+					<label for="accountNo">Account</label> <input type="text" class="form-control" id="accountNumber" name="accountNumber">
+				</div>
+				<button type="submit" class="btn btn-success">Save</button>
+			</form>
+		</div>
+
+		<hr>
+
+		<!-- account list -->
+		<div id="accountList">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Bank</th>
+						<th>Branch</th>
+						<th>Account</th>
+						<th>Balance</th>
+					</tr>
+				</thead>
+				<tr th:each="account : ${accounts}">
+					<td><span th:text="${account.bank}"></span></td>
+					<td><span th:text="${account.branch}"></span></td>
+					<td><span th:text="${account.accountNumber}"></span></td>
+					<td><span th:text="${account.balance}"></span></td>
+				</tr>
+
+			</table>
+		</div>
+
+	</div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+
+</body>
+</html>
