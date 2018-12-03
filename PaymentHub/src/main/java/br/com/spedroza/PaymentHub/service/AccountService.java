@@ -6,22 +6,22 @@ import org.apache.commons.mail.EmailException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.spedroza.PaymentHub.dao.AccountDAO;
 import br.com.spedroza.PaymentHub.infra.MailService;
 import br.com.spedroza.PaymentHub.model.Account;
-import br.com.spedroza.PaymentHub.repository.AccountRepository;
 
 @Service
 public class AccountService {
 
 	@Autowired
-	private AccountRepository repository;
+	private AccountDAO accountDao;
 
 	/*
 	 * Return the list of all accounts
 	 */
 	public Iterable<Account> getAll() {
 		System.out.println("Inside of AccountService.getAll");
-		return repository.findAll();
+		return accountDao.findAll();
 	}
 
 	/*
@@ -30,15 +30,15 @@ public class AccountService {
 	public void save(Account account) {
 		System.out.println("Inside of AccountService.save");
 		this.validate(account);
-		repository.save(account);
+		accountDao.save(account);
 	}
 
 	/*
 	 * Get account by account number
 	 */
-	public List<Account> getAccounts(String accountNumber) {
+	public List<Account> getAccount(int id) {
 		System.out.println("Inside of AccountService.getAccounts");
-		return repository.findByAccountNumber(accountNumber);
+		return accountDao.findByID(id);
 	}
 
 	/*
@@ -48,11 +48,13 @@ public class AccountService {
 		System.out.println("Inside of AccountService.sendMail");
 		MailService mailService = new MailService();
 		System.out.println("Sending mail...");
+		/*
 		mailService.sendMail("Account has been created", "sid.neto@yahoo.com.br", "Payment Hub", "sylvio.pedroza@gmail.com",
 				"The account " + account.getAccountNumber() + " from " + account.getBank() + " bank has been created successfully",
 				"sid.neto@yahoo.com.br", "");
-
+		*/
 	}
+	
 
 	/*
 	 * This method validates account data
@@ -68,6 +70,7 @@ public class AccountService {
 		if(account.getAccountNumber() == null || account.getAccountNumber().isEmpty()) {
 			throw new RuntimeException("Account cannot be null!");
 		}
+		System.out.println("End of AccountService.validate");
 	}
 
 }

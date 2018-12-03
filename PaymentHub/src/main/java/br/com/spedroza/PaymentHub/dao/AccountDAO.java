@@ -1,16 +1,22 @@
 package br.com.spedroza.PaymentHub.dao;
 
 import java.math.BigDecimal;
+import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.spedroza.PaymentHub.model.Account;
-import br.com.spedroza.PaymentHub.repository.AccountRepository;
 
+@Repository
+@Transactional
 public class AccountDAO {
 
-	@Autowired
-	private AccountRepository repository;
+	@PersistenceContext
+	private EntityManager manager;	
 	
 	public void saveMock() {
 		System.out.println("Inside saveMock()");
@@ -19,7 +25,33 @@ public class AccountDAO {
 		account.setBranch("002");
 		account.setAccountNumber("00012345");
 		account.setBalance(BigDecimal.ZERO);
-		repository.save(account);
+		manager.persist(account);
 		System.out.println("End of saveMock()");
 	}
+	
+	
+	public void save(Account account) {
+		System.out.println("Inside save...");
+		manager.persist(account);
+		System.out.println("End of save...");
+	}
+	
+	
+	public List<Account> findAll() {
+		System.out.println("Inside findAll...");
+		List<Account> resultSet = manager.createQuery("select a from Account a", Account.class).getResultList();
+		System.out.println("End of findAll...");
+		return resultSet;
+	}
+	
+	public List<Account> findByID(int id) {
+		System.out.println("Inside save...");
+		System.out.println("Account id = "+id);
+		List<Account> resultSet = manager.createQuery("select a from Account where p.id = :id", Account.class)
+									.setParameter("id", id)	
+									.getResultList();
+		System.out.println("End of save...");
+		return resultSet;
+	}
+	
 }

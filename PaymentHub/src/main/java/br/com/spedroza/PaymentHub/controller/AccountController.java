@@ -53,7 +53,7 @@ public class AccountController {
 		return new ModelAndView("redirect:/accounts");
 	}
 
-	public List<Account> getAccount(String accountNumber) {
-		return accountService.getAccounts(accountNumber);
+	public List<Account> getAccount(int id) {
+		return accountService.getAccount(id);
 	}
 }
