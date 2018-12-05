@@ -67,9 +67,6 @@ public class AccountService {
 		if(account.getBranch() == null || account.getBranch().isEmpty()) {
 			throw new RuntimeException("Branch cannot be null!");
 		}
-		if(account.getAccountNumber() == null || account.getAccountNumber().isEmpty()) {
-			throw new RuntimeException("Account cannot be null!");
-		}
 		System.out.println("End of AccountService.validate");
 	}
 

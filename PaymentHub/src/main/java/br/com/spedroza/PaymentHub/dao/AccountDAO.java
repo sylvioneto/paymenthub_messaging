@@ -54,4 +54,18 @@ public class AccountDAO {
 		return resultSet;
 	}
 	
+	public List<Account> findByBBA(String bank, String branch, String account) {
+		System.out.println("Inside save...");
+		System.out.println("Looking for account bank= "+bank+" branch="+branch+" account="+account);
+		List<Account> resultSet = manager.createQuery("select a from Account where p.bank = :bank "
+				+ " and branch = :branch"
+				+ " and account = :account", Account.class)
+									.setParameter("bank", bank)
+									.setParameter("branch", branch)
+									.setParameter("account", account)
+									.getResultList();
+		System.out.println("End of save...");
+		return resultSet;
+	}
+	
 }
