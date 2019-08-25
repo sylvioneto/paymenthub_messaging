@@ -1,0 +1,13 @@
+# Start MYSQL
+docker run --name PaymentHub1 -p 3306:3306 \
+-e MYSQL_ROOT_PASSWORD=root123 \
+-e MYSQL_DATABASE=PHUB \
+-e MYSQL_USER=neto \
+-e MYSQL_PASSWORD=neto123 \
+-d mysql
+
+# Start RABBIT MQ
+docker run --hostname my-rabbit --name my-rabbit \
+-p 5672:5672 \
+-p 15672:15672 \
+-d rabbitmq:3-management
